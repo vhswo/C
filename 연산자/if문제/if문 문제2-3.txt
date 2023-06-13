@@ -1,0 +1,27 @@
+#include<stdio.h>
+
+void main()
+{
+
+	int iBan;
+
+	printf("구매하실 도시락 갯수를 입력하세요 : ");
+	scanf("%d", &iBan);
+
+	if (iBan <= 10)
+	{
+		printf("도시락의 총 가격은 %d원 입니다.", iBan * 2500);
+	}
+	else if (iBan > 10)
+	{
+		printf("도시락의 총 가격은 %d원 입니다.", (10 * 2500) + ((iBan-10) * 2400));
+	}
+	else
+	{
+		printf("잘못된 접근입니다.");
+	}
+
+
+
+	return;
+}

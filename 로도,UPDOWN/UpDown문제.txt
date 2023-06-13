@@ -1,0 +1,179 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<Windows.h>
+#include<time.h>
+
+#define MIN 0
+#define MAX 1
+#define STARTMIN 1
+#define STARTMAX 100
+#define STARTCOUNT 10
+#define GAMEON 1
+#define GAMEOFF 0
+
+int MainIndex()
+{
+	int inint = 0;
+	printf("==========UpDown==========\n");
+	printf("		1.게임 시작\n");
+	printf("		2.범위 설정\n");
+	printf("		3.종료\n");
+	printf("입력 : ");
+	scanf("%d", &inint);
+
+	return inint;
+}
+
+int RandomNum(int MinMax[])
+{
+	int iRandomNum = 0;
+	while (1)
+	{
+		iRandomNum = rand() % MinMax[MAX] + MinMax[MIN];
+
+		if (iRandomNum > MinMax[MAX])
+			continue;
+
+		return iRandomNum;
+	}
+}
+
+void PlayGame(int MinMax[], int iCount)
+{
+
+	int iInNum = 0;
+	int iRandomNum = 0;
+	int Turn = iCount;
+	int iTurnNum = 1;
+	iRandomNum = RandomNum(MinMax);
+
+	while (iCount >= 0)
+	{
+		system("cls");
+		printf("범위 : %d ~ %d\n", MinMax[MIN], MinMax[MAX]);
+		printf("제한 Trun : %d\n", iCount);
+		printf("=======%d턴=======\n", iTurnNum);
+		printf("입력 : ");
+		scanf("%d", &iInNum);
+
+		if (iInNum > MinMax[MAX] || iInNum < MinMax[MIN])
+			continue;
+
+		if (iRandomNum == iInNum)
+		{
+			printf(" 정답 !\t 턴수 : %d", Turn - iCount);
+			system("pause");
+			break;
+		}
+
+		if (iRandomNum > iInNum)
+			printf("Up");
+		else if (iRandomNum < iInNum)
+			printf("Down");
+
+		system("pause");
+		iCount--;
+		iTurnNum++;
+
+	}
+}
+
+void MinMaxChange(int MinMax[])
+{
+	while (1)
+	{
+		system("cls");
+		printf("(현재 : %d)최소 값 변경 : ", MinMax[MIN]);
+		scanf("%d", &MinMax[MIN]);
+
+		printf("(현재 : %d)최대 값 변경 : ", MinMax[MAX]);
+		scanf("%d", &MinMax[MAX]);
+
+		if (MinMax[MAX] < MinMax[MIN])
+		{
+			printf("오류 : 최대값이 최소값보다 높아야합니다");
+			system("pause");
+			continue;
+		}
+
+		break;
+	}
+}
+
+int SetGame()
+{
+	int iInNum = 0;
+	system("cls");
+	printf("========게임설정========\n");
+	printf(" 1.최대,최소범위 설정\n");
+	printf(" 2.최대 Turn수 설정\n");
+	printf(" 3.돌아가기\n");
+	printf("입력 : ");
+	scanf("%d", &iInNum);
+	return iInNum;
+}
+
+int TurnNumChange(int iCount)
+{
+	while (1)
+	{
+		system("cls");
+		printf("(현재 : %d)최대 Turn 값 변경 : ", iCount);
+		scanf("%d", &iCount);
+
+		if (iCount <= 0)
+		{
+			printf("카운트는 0보다 커야 합니다.");
+			system("pause");
+			continue;
+		}
+
+
+		return iCount;
+	}
+
+
+}
+
+
+
+void main()
+{
+	srand((unsigned)time(NULL));
+
+	int MinMax[2] = { STARTMIN,STARTMAX };
+	int iCount = STARTCOUNT;
+	int iRun = GAMEON;
+
+	while (iRun)
+	{
+		system("cls");
+		//UP & DOWN 게임 메인 메뉴
+		switch (MainIndex())
+		{
+		case 1:
+			PlayGame(MinMax, iCount);
+			break;
+		case 2:
+			switch (SetGame())
+			{
+			case 1:
+				MinMaxChange(MinMax);  // 배열은 주소를 직접적으로 건드리기때문에 인트타입으로 리턴할 필요가 없다.
+				break;
+			case 2:
+				iCount = TurnNumChange(iCount);
+				break;
+			default:
+				break;
+			}
+			break;
+		case 3:
+			iRun = GAMEOFF;
+			break;
+		default:
+			break;
+		}
+	}
+
+
+}

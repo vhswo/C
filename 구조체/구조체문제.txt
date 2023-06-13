@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<Windows.h>
+
+#define MAX_NAME 10
+#define MAX_NUM 5
+typedef struct people
+{
+	char Name[MAX_NAME];
+	int Age;
+	float Height;
+
+}People;
+
+void CreateProfile(People P[MAX_NUM])
+{
+	for (int i = 0; i < MAX_NUM; i++)
+	{
+		printf("=====%d=====\n", i + 1);
+		printf("이름 입력 : ");
+		scanf("%s", P[i].Name);
+		printf("나이 입력 : ");
+		scanf("%d", &P[i].Age);
+		printf("키 입력 : ");
+		scanf("%f", &P[i].Height);
+		printf("============\n");
+	}
+}
+
+void ShowProfile(People P[MAX_NUM])
+{
+	system("cls");
+	printf("정렬 전 정보\n");
+	for (int i = 0; i < MAX_NUM; i++)
+	{
+		printf("=====%d=====\n", i + 1);
+		printf("이름 : %s\n", P[i].Name);
+		printf("나이 : %d\n", P[i].Age);
+		printf("키 : %.2f\n", P[i].Height);
+		printf("============\n");
+	}
+	system("pause");
+}
+
+void ShowFromBigAge(People P[MAX_NUM])
+{
+	People tem;
+	system("cls");
+	for (int i = 0; i < MAX_NUM; i++)
+	{
+		for (int j = 1 + i; j < MAX_NUM; j++)
+		{
+			if (P[i].Age < P[j].Age)
+			{
+				tem = P[i];
+				P[i] = P[j];
+				P[j] = tem;
+			}
+			else if (P[i].Age = P[j].Age)
+			{
+				if (P[i].Height < P[j].Height)
+				{
+					tem = P[i];
+					P[i] = P[j];
+					P[j] = tem;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < MAX_NUM; i++)
+	{
+		printf("=====%d=====\n", i + 1);
+		printf("이름 : %s\n", P[i].Name);
+		printf("나이 : %d\n", P[i].Age);
+		printf("키 : %.2f\n", P[i].Height);
+		printf("============\n");
+	}
+}
+
+void main()
+{
+	People P[MAX_NUM];
+	
+	CreateProfile(P);
+	ShowProfile(P);
+	ShowFromBigAge(P);
+}

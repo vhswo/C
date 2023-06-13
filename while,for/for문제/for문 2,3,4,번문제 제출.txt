@@ -1,0 +1,42 @@
+#include<stdio.h>
+
+void main()
+{
+	int Num = 1;
+	int iSum = 0;
+	int iSum2 = 0;
+
+	printf("2번 문제\n");
+	for (int i = 1; i <= 30; i++)
+	{
+		iSum = iSum + Num;
+		Num = Num * 2;
+		
+	}
+	printf("30일동안 저축한 금액 : %d\n", iSum);
+
+	iSum = 0;
+	printf("3번 문제\n");
+	for (int i = 1; i <= 1000; i++)
+	{
+		if (i % 3 || !(i % 5) )
+		{
+			iSum = iSum + i;
+		}
+		
+	}
+	printf("1 ~ 1000까지 의 합(3의배수 제외, 3과5의 공배수는 미포함) : %d\n", iSum );
+
+
+	printf("4번 문제\n");
+	iSum = 0;
+	int i;
+	for (i = 1; iSum+i < 10000; i += 2)
+	{
+		iSum = iSum + i;
+		
+	}
+	printf("i : %d,		Sum : %d", i, iSum );
+	
+
+}

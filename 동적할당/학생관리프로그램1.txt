@@ -1,0 +1,230 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<Windows.h>
+
+#define MAX 50
+#define NAME_SIZE 10
+#define GENDER_SIZE 10
+#define ENROLLMENT 1
+#define STUDENTNUMLIST 2
+#define STUDENTCLASSLIST 3
+#define SEARCHCLASS 4
+#define SEARCHNAME 5
+#define LASTSTUDENTDELETE 6
+#define ALLSTUDENTDELETE 7
+#define EXIT 8
+
+typedef struct student
+{
+	char Name[NAME_SIZE];
+	int Age;
+	char Gender[GENDER_SIZE];
+	int Class;
+	int Number;
+}Student;
+
+
+int MainMenu(int SC);
+void EnrollMent(Student* St, int* SC);
+void OutputList(Student* St);
+void NumClass(Student* St[], int SC, int Num);
+void SearchClass(Student* St[], int SC);
+void SearchClass(Student* St[], int SC);
+void SearchName(Student* St[], int SC);
+void LastStudentDelete(Student* St[], int* SC);
+void AllStudentDelete(Student* St[], int* SC);
+void SearchClass(Student* St[], int SC)
+{
+	system("cls");
+	int Loop = TRUE;
+	int iCheck = 0;
+	while (Loop)
+	{
+		printf("검색할 학년 입력(1~3) : ");
+		scanf("%d", &iCheck);
+		if (iCheck >= 4 || iCheck <= 0)
+		{
+			printf("학년 잘못 입력(범위 1~3학년)\n");
+			system("pause");
+		}
+		else
+			Loop = FALSE;
+	}
+
+	printf("┌───────────%d학년───────────┐\n", iCheck);
+
+	for (int i = 0; i < SC; i++)
+	{
+		if (iCheck == St[i]->Class)
+			OutputList(St[i]);
+	}
+	printf("└─────────────────────────┘\n");
+	system("pause");
+}
+
+void SearchName(Student* St[], int SC)
+{
+	system("cls");
+	char Name[NAME_SIZE];
+	printf("검색할 이름 입력 : ");
+	scanf("%s", &Name);
+	for (int i = 0; i < SC; i++)
+	{
+		if (strcmp(Name, St[i]->Name) == 0)
+			OutputList(St[i]);
+	}
+	system("pause");
+}
+
+void LastStudentDelete(Student* St[], int* SC)
+{
+	if ((*SC) <= 0)
+		printf("더이상 삭제할 학생이 없습니다.");
+	else
+	{
+		St[(*SC)]->Number = --(*SC);
+		free(St[(*SC)]);
+	}
+}
+
+void AllStudentDelete(Student* St[], int* SC)
+{
+	while ((*SC) > 0)
+	{
+		St[(*SC)]->Number = --(*SC);
+		free(St[(*SC)]);
+	}
+}
+
+
+
+void main()
+{
+	Student* Student_List[MAX];
+
+	int StudentCount = 0;
+
+	while (1)
+	{
+		int Num = 0;
+		switch (MainMenu(StudentCount))
+		{
+		case ENROLLMENT:
+			if (StudentCount + 1 >= MAX)
+			{
+				printf("학생정원이 가득 찼습니다.");
+				system("pause");
+				break;
+			}
+			Student_List[StudentCount] = (Student*)malloc(sizeof(Student));
+			EnrollMent(Student_List[StudentCount], &StudentCount);
+			break;
+		case STUDENTNUMLIST:
+			Num = STUDENTNUMLIST;
+			NumClass(Student_List, StudentCount, Num);
+			break;
+		case STUDENTCLASSLIST:
+			Num = STUDENTCLASSLIST;
+			NumClass(Student_List, StudentCount, Num);
+			break;
+		case SEARCHCLASS:
+			SearchClass(Student_List, StudentCount);
+			break;
+		case SEARCHNAME:
+			SearchName(Student_List, StudentCount);
+			break;
+		case LASTSTUDENTDELETE:
+			LastStudentDelete(Student_List, &StudentCount);
+			break;
+		case ALLSTUDENTDELETE:
+			AllStudentDelete(Student_List, &StudentCount);
+			break;
+		case EXIT:
+			for (int i = 0; i < StudentCount; i++)
+				free(Student_List[i]);
+			return;
+		}
+	}
+
+
+}
+
+int MainMenu(int SC)
+{
+	system("cls");
+	int Select;
+
+	printf("=====학생관리프로그램=====(총 인원 :%d)\n", SC);
+	printf("1.학생 등록\n");
+	printf("2.학생 목록(번호순)\n");
+	printf("3.학생 목록(학년순)\n");
+	printf("4.학년 검색\n");
+	printf("5.학생 검색\n");
+	printf("6.마지막학생삭제\n");
+	printf("7.학생전체삭제\n");
+	printf("8.종료\n");
+	printf("입력 : ");
+	scanf("%d", &Select);
+
+	return Select;
+
+}
+
+void EnrollMent(Student* St, int* SC)
+{
+	int Loop = TRUE;
+	system("cls");
+	St->Number = ++(*SC);
+	printf("=====%d번 학생=====\n", St->Number);
+	printf("이름 입력 : ");
+	scanf("%s", St->Name);
+	printf("나이 입력 : ");
+	scanf("%d", &St->Age);
+	printf("성별 입력 : ");
+	scanf("%s", St->Gender);
+
+	while (Loop)
+	{
+		printf("학년 입력(1~3) : ");
+		scanf("%d", &St->Class);
+		if (St->Class >= 4 || St->Class <= 0)
+		{
+			printf("학년 잘못 입력(범위 1~3학년)\n");
+			system("pause");
+		}
+		else
+			Loop = FALSE;
+	}
+}
+
+void OutputList(Student* St)
+{
+	printf("  =====%s 학생(%d번)=====\n", St->Name, St->Number);
+	printf("  나이 : %d, 성별 : %s, 학년 : %d\n", St->Age, St->Gender, St->Class);
+	printf("  =====================\n");
+}
+
+void NumClass(Student* St[MAX], int SC, int Num)
+{
+	system("cls");
+	Student* tmp;
+
+	for (int i = 0; i < SC; i++)
+	{
+		for (int j = 1 + i; j < SC; j++)
+		{
+			if ((Num == STUDENTNUMLIST && St[i]->Number > St[j]->Number) || (Num == STUDENTCLASSLIST && St[i]->Class > St[j]->Class))
+			{
+				tmp = St[i];
+				St[i] = St[j];
+				St[j] = tmp;
+			}
+		}
+	}
+
+	for (int i = 0; i < SC; i++)
+		OutputList(St[i]);
+	system("pause");
+}
+

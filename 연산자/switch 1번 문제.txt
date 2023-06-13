@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<Windows.h>//system("cls"),system("pause")
+
+void main()
+{
+	char iStudentName[100];
+	int iMenu;
+	int iCheck1 = 0, iCheck2 = 0;
+	int iMath, iEng, iKor;
+	int iSum;
+	float fFvg;
+
+	while (1)
+	{
+		system("cls");
+		
+		printf("====================\n");
+		printf("     학생성적관리    \n");
+		printf("====================\n");
+		printf("   1. 학생 이름등록  \n");
+		printf("   2. 3과목 점수등록 \n");
+		printf("   3. 점수확인       \n");
+		printf("   4. 종료		    \n");
+		printf("====================\n");
+		printf("입력 : ");
+		scanf("%d", &iMenu);
+
+		switch (iMenu)
+		{
+		case 1 :
+			system("cls");
+			printf(" 이름 입력 : ");
+			scanf("%s", &iStudentName);
+			iCheck1 = 1;
+			break;
+		case 2:
+			system("cls");
+			printf("세 과목의 성적을 입력하시오\n");
+			printf("국어 : ");
+			scanf("%d", &iKor);
+			printf("수학 : ");
+			scanf("%d", &iMath);
+			printf("영어 : ");
+			scanf("%d", &iEng);
+			iSum = iKor + iMath + iEng;
+			fFvg = (float)iSum / 3;
+			iCheck2 = 1;
+			break;
+		case 3:
+			system("cls");
+			if (iCheck2 == 0 && iCheck1 == 0)
+			{
+				printf("이름을 입력해주세요\n");
+				printf("점수를 입력해주세요");
+			}
+			else if (iCheck1 == 1 && iCheck2 == 0)
+				printf("점수를 입력해주세요");
+			else if (iCheck1 == 0 && iCheck2 == 1)
+				printf("이름을 입력해주세요");
+			else
+			{
+			printf("====================\n");
+			printf("%s님의 점수\n", iStudentName);
+			printf("국어 점수 : %d\n", iKor);
+			printf("수학 점수 : %d\n", iMath);
+			printf("영어 점수 : %d\n", iEng);
+			printf("합계 점수 : %d\n", iSum);
+			printf("평균 점수 : %.2f\n", fFvg);
+			printf("====================\n");
+			}
+			system("pause");
+			break;
+		case 4:
+			return;
+		}
+
+
+
+	}
+
+
+	return;
+}

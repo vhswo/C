@@ -1,0 +1,113 @@
+﻿#include<stdio.h>
+#include<conio.h>
+
+#define TRUE 1
+
+void main()
+{
+	int Num, Sum = 0, Num2 = 1;
+	int Switch = 1;
+	int NumCount = 0;
+
+	
+	while (TRUE)
+	{
+		printf("10~20 사이의 정수 입력 : ");
+		scanf("%d", &Num);
+		if (Num >= 10 && Num <= 20)
+		{
+			printf("10 ~ 20 사이 입력 받은 정수 : %d\n", Num);
+
+			while (Num2 <= Num)
+			{
+				Sum += Num2;
+				Num2++;
+			}
+			printf("입력 받은 정수의 총 합 : %d\n", Sum);
+			break;
+		}
+		printf("잘못 다시 입력\n");
+	}
+
+
+	//Hello 5번 출력
+	while (Switch <= 5)
+	{
+		printf("Hello\n");
+		Switch++;
+	}
+
+
+	//정수를 입력 받아 합계 구하기 (0 입력시 종료)
+	Switch = 1;
+	Sum = 0;
+	while (Switch)
+	{
+		printf("정수 입력 : ");
+		scanf("%d", &Num);
+		Sum += Num;
+
+		if (Num == 0)
+		{
+			printf("총 합 : %d\n", Sum);
+			Switch = 0;
+		}
+	}
+
+	
+
+	//입력한 수가 소수인지 판단
+		printf("4.소수 판별\n");
+		printf("정수 입력 :");
+		scanf("%d", &Num);
+		Num2 = 1;
+	
+		while (Num >= Num2)
+		{
+			if (Num % Num2 == 0)
+			{
+				NumCount++;
+			}
+			Num2++;
+		}
+
+		if (NumCount == 2)
+		{
+			printf("소수입니다.\n");
+		}
+		else
+		{
+			printf("소수가 아닙니다.\n");
+		}
+
+		
+
+		//입력한 수가 거꾸로 출력 되게 하시오.
+		printf("5.입력된 정수 거꾸로 출력\n");
+		printf("정수를 입력해주세요 : ");
+		scanf("%d", &Num);
+
+		Sum = 0;
+		while (Num > 1)
+		{
+			Num2 = Num % 10;
+			Num /= 10;
+			Sum = Sum * 10 + Num2;
+		}
+		printf("%d\n", Sum);
+
+
+	//입력된 수의 각 자리별로 합계를 구하시오.
+	printf("6.입력된 정수의 각자리 수 합계");
+	scanf("%d", &Num);
+
+	Sum = 0;
+	while (Num > 1)
+	{
+		Num2 = Num % 10;
+		Num /= 10;
+		Sum = Sum + Num2;
+	}
+	printf("%d\n", Sum);
+
+}

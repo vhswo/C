@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<string.h>
+
+#define MAX 10
+
+void Strcpy(char Name[MAX], char My_Name[MAX])
+{
+	int i = 0;
+	char a;
+	while (My_Name[i] != NULL)
+	{
+		Name[i] = My_Name[i];
+		i++;
+		if(My_Name[i] == NULL)
+			Name[i] = NULL;
+	}
+}
+
+void main()
+{
+	char Name[MAX];
+	char My_Name[MAX] = "JunHo";
+
+	
+
+	Strcpy(Name,My_Name);
+	printf("%s\n", My_Name);
+	printf("%s\n", Name);
+
+
+
+}

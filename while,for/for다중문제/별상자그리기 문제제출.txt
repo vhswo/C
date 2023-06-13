@@ -1,0 +1,22 @@
+#include<stdio.h>
+
+void main()
+{
+	int iLenth = 0;
+	int iWidth = 0;
+
+	printf("가로와 세로 의 수를 입력하세요 : ");
+	scanf("%d%d", &iLenth, &iWidth);
+
+	for (int i = 1; i <= iLenth; i++)
+	{
+		for (int j = 1; j <= iWidth; j++)
+		{
+				if (j > 1 && j < iWidth && i > 1 && i < iLenth)
+					printf("  ");
+				else
+					printf("★");
+		}
+		printf("\n");
+	}
+}

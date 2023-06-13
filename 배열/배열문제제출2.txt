@@ -1,0 +1,111 @@
+#include<stdio.h>
+#include<Windows.h>
+
+#define MAX 10
+#define ODD 1
+#define EVEN 0
+
+void OutputArr(int Arr[]);
+void InvertArr(int Invert_Arr[], int Arr[]);
+
+int Lonly(int Arr[], int Choice);
+
+void BigNumArr(int Sort_Arr[]);
+
+
+void main()
+{
+	int Arr[MAX] = {10,17,3,9,37,10,8,9,13,21};
+	int Invert_Arr[MAX];
+	int Sort_Arr[MAX];
+	int Choice;
+
+	system("cls");
+	printf("1번 문제\n");
+	OutputArr(Arr);
+
+
+	printf("\n2번 문제\n");
+	InvertArr(Invert_Arr,  Arr);
+	OutputArr(Invert_Arr);
+
+	printf("\n3번 문제\n홀수 번째 원소 : ");
+
+	printf("\n홀수 합계 : %d\n짝수 번째 원소 : ", Lonly(Arr, ODD));
+
+	printf("\n짝수 합계 : %d\n", Lonly(Arr, EVEN));
+	
+	
+	printf("\n4번 문제\n");
+	for (int i = 0; i < MAX; i++)
+		Sort_Arr[i] = Arr[i];
+
+	BigNumArr(Sort_Arr);
+
+	printf("Arr : ");
+	OutputArr(Arr);
+
+	printf("\nSort_Arr : ");
+	OutputArr(Sort_Arr);
+
+}
+
+
+
+//함수
+
+
+void OutputArr(int Arr[])
+{
+	for (int i = 0; i < MAX; i++)
+	{
+		printf("%d", Arr[i]);
+
+		if (i < MAX - 1)
+			printf(",");
+	}
+	printf("\n");
+}
+
+void InvertArr(int Invert_Arr[], int Arr[])
+{
+	for (int i = 0; i < MAX; i++)
+	{
+		Invert_Arr[(MAX - 1) - i] = Arr[i];
+	}
+}
+
+int Lonly(int Arr[], int Choice)
+{
+	int Sum = 0;
+
+		for (int i = 0; i < MAX; i++)
+		{
+			if (i % 2 == Choice)
+			{
+				printf("%d", Arr[i]);
+				Sum += Arr[i];
+
+				if (i < MAX-2)
+					printf(",");
+			}
+		}
+		return Sum;
+}
+
+void BigNumArr(int Sort_Arr[])
+{
+	for (int i = 0; i < MAX; i++)
+	{
+		for (int j = i; j < MAX; j++)
+		{
+			if (Sort_Arr[i] <= Sort_Arr[j])
+			{
+				int MaxNum = Sort_Arr[j];
+				Sort_Arr[j] = Sort_Arr[i];
+				Sort_Arr[i] = MaxNum;
+			}
+		}
+	}
+}
+

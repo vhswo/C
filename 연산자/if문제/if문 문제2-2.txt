@@ -1,0 +1,27 @@
+#include<stdio.h>
+
+void main()
+{
+	int iBasicPrice = 3000;
+	int iPrice = 500;
+	int iTime;
+
+	printf("이용시간을 입력하세요 : ");
+	scanf("%d", &iTime);
+
+	if (iTime <= 30)
+	{
+		printf("이용금액은 %d원 입니다.", iBasicPrice);
+	}
+	else if (iTime > 30)
+	{
+		iTime = iTime - 31;
+		printf("이용금액은 %d원 입니다.", iBasicPrice+ ((iTime / 10) + 1) * iPrice);
+	}
+	else
+	{
+		printf("잘못된 접근입니다.");
+	}
+
+	return;
+}

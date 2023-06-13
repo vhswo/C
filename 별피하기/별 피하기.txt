@@ -1,0 +1,338 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<Windows.h>
+#include<conio.h>
+
+#define WIDTH 11
+#define HEIGHT 20
+#define LEVEL_SIZE 32
+#define PLAYER 2
+#define WALL 1
+#define STAR 3
+#define ON 1
+#define OFF 0
+#define NULL 0
+#define RIGHT 'd'
+#define BRIGHT 'D'
+#define LEFT 'a'
+#define BLEFT 'A'
+#define X 1
+#define Y 0
+#define SCORE 2
+#define LIFE 3
+#define GAMESPEED 10
+#define STARSPEED 10
+#define EASY 1
+#define NORMAL 2
+#define HARD 3
+#define HELL 4
+#define BACK 5
+#define EXIT 3
+
+void GameStart(int Level);
+int Move(int Map[][WIDTH], int Player[]);
+int SetMainMenu();
+int SetLevel(int Level);
+void CreateStar(int Map[][WIDTH], int level);
+void UpdateStar(int Map[][WIDTH]);
+void MapDraw(int Map[][WIDTH], int Level, int Player[]);
+void Init(int Map[][WIDTH], int Player[]);
+int EndGame(int Map[][WIDTH], int Player[]);
+int GetPoint(int Map[][WIDTH], int Player[]);
+void Difficulty(int Level);
+
+void GameStart(int Level)
+{
+	int Map[HEIGHT][WIDTH] = { 0 };
+	int iRun = ON;
+	int iTime = 10;
+	int iSetSpeed = STARSPEED;
+	int iStage = 0;
+	int Player[4] = { HEIGHT - 1 , WIDTH - 5, SCORE, LIFE };
+	int MapDrawCheck = 0;
+
+	Init(Map, Player);
+
+	while (iRun)
+	{
+
+		iRun = EndGame(Map, Player);
+		Player[SCORE] = GetPoint(Map, Player);
+
+		if (iSetSpeed != 1)
+			iStage = Player[SCORE] / 10;
+		iSetSpeed = STARSPEED - iStage;
+
+		if (iTime % iSetSpeed == 0)
+		{
+			UpdateStar(Map);
+			CreateStar(Map, Level);
+			MapDrawCheck++;
+		}
+
+		if(Move(Map, Player) != -1)
+			MapDrawCheck ++;
+
+		if (MapDrawCheck != 0)
+		{
+			MapDrawCheck = 0;
+			MapDraw(Map, Level, Player);
+		}
+
+		Sleep(GAMESPEED);
+		iTime++;
+		// sleep 10 당  itme 1
+	}
+}
+
+void main()
+{
+	int Level = EASY;
+	srand((unsigned)time(NULL));
+
+	while (1)
+	{
+		int iRun = ON;
+
+		switch (SetMainMenu())
+		{
+		case 1:
+			GameStart(Level);
+			break;
+		case 2:
+			while (iRun)
+			{
+				switch (SetLevel(Level))
+				{
+				case EASY:
+					Level = EASY;
+					break;
+				case NORMAL:
+					Level = NORMAL;
+					break;
+				case HARD:
+					Level = HARD;
+					break;
+				case HELL:
+					Level = HELL;
+					break;
+				case BACK:
+					iRun = OFF;
+					break;
+				}
+			}
+			break;
+		case EXIT:
+			return;
+		};
+
+	}
+}
+
+
+void CreateStar(int Map[][WIDTH], int level)
+{
+	int Num;
+	for (int x = 1; x < WIDTH - 1; x++)
+	{
+		Num = rand() % 100 + 1;
+		switch (level)
+		{
+		case EASY:
+			if (Num > 0 && Num <= 5)
+				Map[0][x] = STAR;
+			break;
+		case NORMAL:
+			if (Num > 0 && Num <= 15)
+				Map[0][x] = STAR;
+			break;
+		case HARD:
+			if (Num > 0 && Num <= 35)
+				Map[0][x] = STAR;
+			break;
+		case HELL:
+			if (Num > 0 && Num <= 60)
+				Map[0][x] = STAR;
+			break;
+		}
+	}
+}
+
+void UpdateStar(int Map[][WIDTH])
+{
+	for (int y = HEIGHT - 1; y >= 0; y--)
+	{
+		for (int x = 1; x < WIDTH - 1; x++)
+		{
+			if (Map[y][x] == STAR)
+			{
+				Map[y][x] = NULL;
+
+				Map[y + 1][x] = STAR;
+			}
+		}
+	}
+}
+
+void MapDraw(int Map[][WIDTH], int Level, int Player[])
+{
+	system("cls");
+	Difficulty(Level);
+
+	for (int y = 0; y < HEIGHT; y++)
+	{
+		for (int x = 0; x < WIDTH; x++)
+		{
+			if (Map[y][x] == STAR)
+				printf("☆");
+			else if (Map[y][x] == WALL)
+				printf("l");
+			else if (Map[y][x] == PLAYER)
+				printf("옷");
+			else if (Map[y][x] == NULL)
+				printf("  ");
+			else
+				printf("  ");
+		}
+		printf("\n");
+	}
+	printf("\n포인트점수 : %d\n", Player[SCORE]);
+	printf("캐릭터 목숨 : %d", Player[LIFE]);
+}
+
+void Init(int Map[][WIDTH], int Player[])
+{
+	for (int y = 0; y < HEIGHT; y++)
+	{
+		for (int x = 0; x < WIDTH; x++)
+		{
+			Map[y][0] = WALL;
+			Map[y][WIDTH - 1] = WALL;
+			Map[Player[Y]][Player[X]] = PLAYER;
+			Player[SCORE] = 0;
+			Player[LIFE] = 2;
+		}
+	}
+}
+
+int EndGame(int Map[][WIDTH], int Player[])
+{
+	if (Map[Player[Y]][Player[X]] == STAR)
+	{
+		if (Player[LIFE] == 1)
+		{
+			for (int y = 0; y < HEIGHT; y++)
+			{
+				for (int x = 0; x < WIDTH; x++)
+				{
+					Map[y][x] = NULL;
+				}
+			}
+			printf("GameOver");
+			system("pause");
+			return  OFF;
+		}
+		else
+		{
+			Map[Player[Y]][Player[X]] = PLAYER;
+			Player[LIFE]--;
+		}
+	}
+}
+
+int GetPoint(int Map[][WIDTH], int Player[])
+{
+	for (int x = 1; x < WIDTH - 1; x++)
+	{
+		if (Map[HEIGHT-1][x] == STAR)
+		{
+			Map[HEIGHT-1][x] = NULL;
+			Player[SCORE]++;
+		}
+	}
+	return Player[SCORE];
+}
+
+int Move(int Map[][WIDTH], int Player[])
+{
+	char ch;
+
+	if (kbhit())
+	{
+		ch = getch();
+
+		Map[Player[Y]][Player[X]] = NULL;
+
+		if (Map[Player[Y]][Player[X] + 1] != WALL)
+			if (ch == RIGHT || ch == BRIGHT)
+				Player[X]++;
+
+		if (Map[Player[Y]][Player[X] - 1] != WALL)
+			if (ch == LEFT || ch == BLEFT)
+				Player[X]--;
+
+		Map[Player[Y]][Player[X]] = PLAYER;
+
+		
+		return 1;
+	}
+
+	return - 1;
+
+}
+
+int SetMainMenu()
+{
+	system("cls");
+	int iInput = 0;
+	printf("=====별똥별 피하기=====\n");
+	printf("	1.게임 시작\n");
+	printf("	2.난이도 조절\n");
+	printf("	3.종료\n");
+	scanf("%d", &iInput);
+
+	return iInput;
+}
+
+int SetLevel(int Level)
+{
+
+	while (1)
+	{
+		system("cls");
+
+		int iInput = 0;
+		Difficulty(Level);
+
+		printf("=======난이도 조절=======\n");
+		printf("1.Easy\n");
+		printf("2.Normal\n");
+		printf("3.Hard\n");
+		printf("4.Hell\n");
+		printf("5.Return\n");
+		printf("입력 : ");
+		scanf("%d", &iInput);
+
+		return iInput;
+
+	}
+
+}
+
+void Difficulty(int Level)
+{
+	char LevelCheck[LEVEL_SIZE] = "Easy";
+	char LevelCheck2[LEVEL_SIZE] = "Normal";
+	char LevelCheck3[LEVEL_SIZE] = "Hard";
+	char LevelCheck4[LEVEL_SIZE] = "Hell";
+
+	if (Level == EASY)
+		printf("====%s====\n", LevelCheck);
+	if (Level == NORMAL)
+		printf("====%s====\n", LevelCheck2);
+	if (Level == HARD)
+		printf("====%s====\n", LevelCheck3);
+	if (Level == HELL)
+		printf("====%s====\n", LevelCheck4);
+}

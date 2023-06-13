@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<conio.h>
+
+#define MAX 100
+
+void LoadFile(char* input)
+{
+	char buf[MAX] = { 0 };
+	FILE* f = fopen("Alice.txt", "r");
+	if (f == NULL)
+		printf("파일이 없습니다.");
+	else
+	{
+		while (!feof(f))
+		{
+			fgets(buf, sizeof(buf), f);
+			printf("%s", buf);
+		}
+		fclose(f);
+	}
+
+	printf("Check Word Input : ");
+	scanf("%s", input);
+}
+
+void SearchWord(char* input)
+{
+	char buf[MAX] = { 0 };
+	int Count = 0;
+	FILE* f = fopen("Alice.txt", "r");
+	if (f != NULL)
+	{
+		while (!feof(f))
+		{
+			fgets(buf, sizeof(buf), f);
+			int i = 0;
+			while (buf[i] != NULL)
+			{
+
+				int j = 0;
+				int k = 0;
+				if (buf[i] == input[j]) // buf[i] 와 input 첫번째 주소를 같은지 확인한다.
+				{
+
+					for (k = i + 1, j = 1; buf[k] == input[j]; j++, k++);  // k 에 i+1를 넣고 j 에 1을 넣고 다음꺼부터 비교를 한다. 그리고 같으면 j,k를 ++ 다르면 종료
+
+
+					if (input[j] == NULL)				//만약 j+1 번째가 NULL  이면 카운트를 1 올린다.
+						Count++;
+
+				}
+				i++;
+			}
+
+
+		}
+		fclose(f);
+		printf("%s의 갯수 : %d", input, Count);
+	}
+}
+
+void main()
+{
+	char input[MAX];
+	
+	LoadFile(input);
+	SearchWord(input);
+}

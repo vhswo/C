@@ -1,0 +1,62 @@
+#include<stdio.h>
+
+void main()
+{
+	int Num1 , Num2;
+	int Kor, Eng, Math;
+	int Sum;
+
+	printf("정수를 입력해주세요 : ");
+	scanf("%d", &Num1);
+	(Num1 % 5 == 0) ? printf("%d는 5의 배수입니다.", Num1) : printf("%d는 5의 배수가 아닙니다.", Num1);
+	printf("\n\n");
+
+
+	printf("세 과목의 점수를 입력하세요!\n");
+	printf("국어 점수를 입력 하세요 : ");
+	scanf("%d", &Kor);
+	printf("영어 점수를 입력 하세요 : ");
+	scanf("%d", &Eng);
+	printf("수학 점수를 입력 하세요 : ");
+	scanf("%d", &Math);
+
+	Sum = Kor + Eng + Math;
+
+	(Sum/3 >= 60 == 0) ? printf("학생의 점수는 %d로 합격입니다.", Sum/3) : printf("학생의 점수는 %d로 불합격입니다.", Sum/3);
+	printf("\n\n");
+
+
+	printf("두 정수를 입력하시오 : ");
+	scanf("%d%d", &Num1, &Num2);
+
+	(Num1 > Num2 == 0) ? printf("더 큰 수 : %d", Num2) : printf("더 큰 수 : %d", Num1);
+
+
+	printf("정수를 입력해주세요 : ");
+	scanf("%d", &Num1);
+	(Num1/3 % 2 == 0) ? printf("%d는 3의 배수이면 짝수입니다.", Num1) : printf("%d는 아닙니다.", Num1);
+	printf("\n\n");
+
+	printf("정수를 입력해주세요 : ");
+	scanf("%d", &Num1);
+	(Num1 % 5 == 0 || Num1 % 7 == 0) ? printf("%d는 5의 배수이거나 7의배수입니다.", Num1) : printf("%d는 5의 배수이거나 7의배수가 아닙니다.", Num1);
+	printf("\n\n");
+
+
+
+	return;
+}
+
+
+
+12 & 5 : 4
+
+18 | 3 : 19
+
+14 ^ 2 : 12
+
+~20 : 11
+
+7 << 2 : 28
+
+40 >> 3 : 5

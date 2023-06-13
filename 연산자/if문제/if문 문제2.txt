@@ -1,0 +1,112 @@
+#include<stdio.h>
+
+void main()
+{
+	int Kor, Eng, Math;
+	int Sum;
+	float Avg;
+	printf("세 과목의 점수를 입력하시오\n");
+	printf("국어 : ");
+	scanf("%d", &Kor);
+	printf("영어 : ");
+	scanf("%d", &Eng);
+	printf("수학 : ");
+	scanf("%d", &Math);
+	Avg = (double)(Kor + Eng + Math) / 3.0;
+	Sum = Kor + Eng + Math;
+
+	if (Avg >= 90)
+	{
+		printf("국어점수 : %d  수학점수 : %d  영어점수 : %d\n", Kor, Math, Eng);
+		printf("총합점수 : %d  평균점수 : %.2f  등급 : A", Sum, Avg);
+	}
+	else if(Avg >= 80)
+	{
+		printf("국어점수 : %d  수학점수 : %d  영어점수 : %d\n", Kor, Math, Eng);
+		printf("총합점수 : %d  평균점수 : %.2f  등급 : B", Sum, Avg);
+	}
+	else if (Avg >= 70)
+	{
+		printf("국어점수 : %d  수학점수 : %d  영어점수 : %d\n", Kor, Math, Eng);
+		printf("총합점수 : %d  평균점수 : %.2f  등급 : C", Sum, Avg);
+	}
+	else if (Avg >= 60)
+	{
+		printf("국어점수 : %d  수학점수 : %d  영어점수 : %d\n", Kor, Math, Eng);
+		printf("총합점수 : %d  평균점수 : %.2f  등급 : D", Sum, Avg);
+
+	}
+	else
+	{
+		printf("국어점수 : %d  수학점수 : %d  영어점수 : %d\n", Kor, Math, Eng);
+		printf("총합점수 : %d  평균점수 : %.2f  등급 : F", Sum, Avg);
+	}
+
+
+	int iBasicPrice = 3000;
+	int iPrice = 500;
+	int iTime;
+
+	printf("이용시간을 입력하세요 : ");
+	scanf("%d", &iTime);
+	
+	if (iTime <= 30)
+	{
+		printf("이용금액은 %d원 입니다.", iBasicPrice);
+	}
+	else if (iTime > 30)
+	{
+		printf("이용금액은 %d원 입니다.", iBasicPrice + (((iTime - 20) /10) * iPrice));
+	}
+	else
+	{
+		printf("잘못된 접근입니다.");
+	}
+
+
+	int iBan;
+
+	printf("구매하실 도시락 갯수를 입력하세요 : ");
+	scanf("%d", &iBan);
+
+	if (iBan <= 10)
+	{
+		printf("도시락의 총 가격은 %d원 입니다.", iBan * 2500);
+	}
+	else if (iBan > 10)
+	{
+		printf("도시락의 총 가격은 %d원 입니다.", iBan * 2400);
+	}
+	else
+	{
+		printf("잘못된 접근입니다.");
+	}
+
+
+	int iDis;
+	int iSale10 = 10;
+	int iSale12 = 12;
+
+	printf("구매하실 디스켓 갯수를 입력하세요 : ");
+	scanf("%d", &iDis);
+
+	if (iDis < 10)
+	{
+		printf("디스켓의 총 가격은 %d원 입니다.", iDis * 5000);
+	}
+	else if (iDis >= 10)
+	{
+		printf("디스켓의 총 가격은 %d원 입니다.", (iDis * 5000) - ((iDis * 5000)/iSale10));
+	}
+	else if (iDis >= 100)
+	{
+		printf("디스켓의 총 가격은 %d원 입니다.", (iDis * 5000) - ((iDis * 5000) / iSale12));
+	}
+	else
+	{
+		printf("잘못된 접근입니다.");
+	}
+
+
+	return;
+}

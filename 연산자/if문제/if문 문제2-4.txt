@@ -1,0 +1,28 @@
+#include<stdio.h>
+
+void main()
+{
+	int iDis;
+	int iSale10 = 10;
+
+	printf("구매하실 디스켓 갯수를 입력하세요 : ");
+	scanf("%d", &iDis);
+
+	if (iDis < 10)
+	{
+		printf("디스켓의 총 가격은 %d원 입니다.", iDis * 5000);
+	}
+	else if (100>iDis >= 10)
+	{
+		printf("디스켓의 총 가격은 %d원 입니다.", (iDis * 5000) - ((iDis * 5000) / iSale10));
+	}
+	else if (iDis >= 100)
+	{
+		printf("디스켓의 총 가격은 %d원 입니다.\n", (iDis * 5000) - ((((iDis * 5000) /100) *12)));
+		printf("가격 %d", iDis * 5000);
+	}
+	else
+	{
+		printf("잘못된 접근입니다.");
+	}
+}

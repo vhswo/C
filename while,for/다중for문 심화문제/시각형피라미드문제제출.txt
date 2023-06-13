@@ -1,0 +1,30 @@
+﻿#include<stdio.h>
+
+int main()
+{
+	int iHeight;
+
+	printf("높이를 입력하세요 :");
+	scanf("%d", &iHeight);
+
+	
+
+	for (int i = 1; i <= iHeight+2; i++)
+	{
+		for (int j = 1; j <= (iHeight*2) +1; j++)
+		{
+			if (i == 1 || i == iHeight+2)
+				printf("★");
+			else if (j == 1 || j == (iHeight * 2) + 1)
+				printf("★");
+			else if ((i > 1 || i< iHeight -1) && (i+j >= iHeight+3 && j -i <= iHeight-1))
+				printf("★");
+			else
+				printf("  ");
+
+
+		}
+		printf("\n");
+	}
+
+}

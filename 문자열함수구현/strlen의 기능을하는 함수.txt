@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<string.h>
+
+#define MAX 10
+
+int Strlen(char str[MAX])
+{
+	int i = 0;
+	
+	while (str[i] != NULL)
+		i++;
+	
+	return i;
+}
+
+void main()
+{
+	char str[MAX] = "Hello";
+	
+	printf("%d", Strlen(str));
+}

@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<string.h>
+
+#define MAX 10
+
+void Strcat1(char str[MAX],char str2[MAX])
+{
+	int i = 0;
+	while (str[i] != NULL)
+		i++;
+
+	for (int j = 0; str2[j] != NULL; j++; i++)
+		str[i] = str2[j];
+	str[i] = NULL;
+
+}
+
+void main()
+{
+	char str[MAX] = "Hello";
+	char str2[MAX] = "^^";
+
+	printf("%s\n", str);
+	Strcat1(str,str2);
+	printf("%s\n", str);
+
+}

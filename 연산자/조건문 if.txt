@@ -1,0 +1,111 @@
+#include<stdio.h>
+
+void main()
+{
+
+	int Num;
+	printf("1.정수를 입력하세요 : ");
+	scanf("%d", &Num);
+	if (Num % 3 == 0)
+	{
+		printf("%d는 3의 배수입니다.", Num);
+	}
+	if (Num % 3 != 0)
+	{
+		printf("%d는 3의 배수가 아닙니다.\n\n", Num);
+	}
+	printf("\n\n");
+
+
+	int Num1;
+	printf("2.정수를 입력하세요 : ");
+	scanf("%d", &Num1);
+	if (Num1 >= 0)
+	{
+		printf("%d", Num1);
+	}
+	if (Num1 < 0)
+	{
+		printf("%d\n\n", -Num1);
+	}
+	printf("\n\n");
+
+
+	int Num2;
+	printf("3.정수를 입력하세요 : ");
+	scanf("%d", &Num2);
+	if (Num2 % 2 == 0)
+	{
+		printf("Num2 는 짝수 입니다.");
+	}
+	if (Num2 % 2 != 0)
+	{
+		printf("Num2 는 홀수 입니다.\n\n");
+	}
+	printf("\n\n");
+
+
+	int Num3, Num4;
+	printf("4.정수를 입력하세요 : ");
+	scanf("%d%d", &Num3, &Num4);
+	if (Num3 > Num4)
+	{
+		printf("더 큰수는 %d 입니다.", Num3);
+	}
+	if (Num4 > Num3)
+	{
+		printf("더 큰수는 %d 입니다.\n\n", Num4);
+	}
+	printf("\n\n");
+
+
+	int Num5, Num6, Num7;
+	printf("5.정수를 입력하세요 : ");
+	scanf("%d%d%d", &Num5, &Num6, &Num7);
+	
+	if (Num5 > Num6 && Num5 > Num7)
+	{
+		printf("가장 큰수는 %d 입니다.", Num5);
+	}
+	if (Num6 > Num5 && Num6 > Num7)
+	{
+		printf("가장 큰수는 %d 입니다.", Num6);
+	}
+	if (Num7 > Num6 && Num7 > Num5)
+	{
+		printf("가장 큰수는 %d 입니다.\n\n", Num7);
+	}
+	printf("\n\n");
+
+
+	int Num8, Num9;
+	printf("6.정수를 입력하세요 : ");
+	scanf("%d%d", &Num8, &Num9);
+	if (Num8 > Num9 && Num8 % 2 == 0)
+	{
+		printf("더 큰 수 는 %d이고 짝수이다", Num8);
+	}
+	if (Num9 > Num8 && Num9 % 2 == 0)
+	{
+		printf("더 큰 수 는 %d이고 짝수이다\n\n", Num9);
+	}
+	printf("\n\n");
+
+
+	int Num10, Num11;
+	int Sum;
+	printf("7.정수를 입력하세요 : ");
+	scanf("%d%d", &Num10, &Num11);
+	Sum = Num10 + Num11;
+	if (Sum % 2 != 0 && Sum % 3 == 0)
+	{
+		printf("%d는 3의 배수이면서 짝수가 아닙니다.", Sum);
+	}
+	
+
+
+
+
+
+	return;
+}

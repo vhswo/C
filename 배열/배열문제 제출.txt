@@ -1,0 +1,68 @@
+﻿#include<stdio.h>
+#define MAX 10
+#define NUM1 1
+#define NUM2 2
+
+int CreateNumArr(int NumArr[]);
+int Sum(int NumArr[]);
+int BigNum(int NumArr[]);
+
+void main()
+{
+	int NumArr[MAX];
+	int iSum = 0, iBigNum = 0;
+	float iFloat;
+
+	CreateNumArr(NumArr);
+
+	iSum = Sum(NumArr);
+
+	iFloat = (float)iSum / MAX;
+
+	iBigNum = BigNum(NumArr);
+
+
+	printf("제일 큰 수 : %d\t", iBigNum);
+	printf("총합 = %d\t", iSum);
+	printf("평균 = %.3f", iFloat);
+
+
+}
+
+int Sum(int NumArr[])
+{
+	int iSum = 0;
+	for (int i = 0; i < MAX; i++)
+	{
+		iSum += NumArr[i];
+	}
+	return iSum;
+}
+
+
+int CreateNumArr(int NumArr[])
+{
+	for (int i = 0; i < MAX; i++)
+	{
+		printf("[%d]번째 정수 입력 : ", i + 1);
+		scanf("%d", &NumArr[i]);
+	}
+}
+
+
+int BigNum(int NumArr[])
+{
+	int iBigNum = NumArr[0];
+
+
+	for (int i = 0; i < MAX; i++)
+	{
+		if(NumArr[i] >= iBigNum)
+			iBigNum = NumArr[i];
+		
+	}
+
+	return iBigNum;
+
+
+}
